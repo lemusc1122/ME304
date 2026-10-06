@@ -1,0 +1,173 @@
+\documentclass{article}
+\usepackage[left = 25.4mm,right = 25.4mm,top = 25.4mm,bottom = 25.4mm]{geometry}
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{indentfirst}
+\usepackage[utf8]{inputenc}
+\usepackage{biblatex}
+\usepackage{amsmath}
+\usepackage{authblk}
+\usepackage{datetime}
+\doublespacing
+
+\addbibresource{bib.bib}
+%\doublespacing
+\graphicspath{ {./images/} }
+\setlength{\parindent}{2em}
+
+\title{\Huge Mercedes F1 M12 E Performance Analysis }
+\begin{document}
+\date{August 9, 2021}
+\author{Christopher Lemus
+  \thanks{Electronic address: \texttt{lemusc@bu.edu}}}
+\affil{Department of Electrical Engineering, Boston University}
+\maketitle
+
+\newpage
+
+\section{Executive Summary}
+The aim of this paper is to take a thermodynamic subject and break it down enough to verify whether the claims made in the article being explored are accurate. Specifications and a few operation characteristics are also given, which will make the initialization of the thermodynamic analysis easier for us to begin without the need to make too many assumptions. This is an important topic to analyze because hundreds of millions of dollars are invested annually by different manufacturers to create the most efficient machines possible so we should be able to see what kind of technicality and expertise the R\&D teams are working with \cite{EngineDevCost}. In this paper I will go through the analysis at various state points on the internal combustion engine (ICE) and verify any claims being made across the media by either Mercedes or bloggers. 
+
+\section{Background on Formula 1 Performance}
+Formula 1 engines are known by car enthusiasts for their high pitched exhaust notes down the straight strips of a circuit and the wonderful downshift exhaust notes around corners. From the year 1947 through the present times the goal of Formula 1 has been to create the most powerful and efficient engines possible which would take a lightweight vehicle across the finish line of a race track. Tons of development was made by all the well-known manufacturers (Mercedes-Benz, Ferrari, Ford, Honda) of which they all take continued to this day to make improvements not just in the motorsport but on the public streets as well. Engines of all different displacements were allowed up until 2014 where the Fédération Internationale de l'Automobile (FIA) will only allow 1.6L 4-stroke piston V6 engines to compete\cite{F1History}. The reasoning behind this decision was to mitigate emissions and make fuel combustion more efficient so the global warming circumstance lessens moving into the future.  \par
+The most interesting part about this move is that it would put Formula 1 at the pinnacle of thermodynamic waste heat recovery system (WHRS) breakthroughs and to really push the boundaries in efficiencies for a 1.6L 4-stroke V6 engine - from which all engineers in the automotive can learn from and apply concepts to road vehicles. The power unit (PU) which consists of the internal combustion engine (ICE), turbocharger (TC), motor-generator unit-heat (MGU-H), motor-generator unit-kinetic (MGU-K), energy store (ES) and controls electronics (CE). Figure 1 shows this PU for the Mercedes M12 E which we will be analyzing later. 
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.90\textwidth]{Images/PU.png}
+\caption{\href{https://www.mercedesamgf1.com/en/news/2019/08/the-internal-combustion-engine-the-power-units-mechanical-heart/}{Mercedes M12 E PU}}
+\end{figure}
+
+\subsection{Performance Claims}
+Mercedes has claimed to have created the first ever 50\% thermally efficient power unit in Formula 1\cite{fiftypercentTE}. What does this mean? Half of whatever fuel source is used (high octane unleaded in the case of F1) is used as useful energy and the other half is wasted. For comparison, take a regular street car which may be in the range of 20-35\% efficiency - these cars only utilize 20-35\% of the energy source as useful energy while the rest is wasted as heat. One of the biggest challenges for present engineers is figuring out ways in which to reduce friction and other sources of heat loss in engines to increase the thermal efficiency from the 20-35\% range. The Mercedes F1 M12 E engine under evaluation in this paper has 50\% thermal efficiency when looking at the PU as a whole. Without the MGU-H and MGU-K, what would the ICE thermal efficiency be? These are the ideas we will be exploring today. In addition, we will include some analysis on the WHRS and how much energy it reintroduces to the system. 
+\section{Analysis of the Mercedes F1 M12 E}
+\subsection{Specifications of Mercedes F1 M12 E PU}
+Figure 2 shows the specifications for the ICE taken from Mercedes directly\cite{Eperformance}. According to Mercedes, the temperatures get as hot as 2,600C, or approximately 5,200R, at the time of combustion which will be our T3 for our spreadsheet input. The compressor is also able to reach pressures up to $5\times$ atmospheric pressure\cite{F1engineFacts}. We are looking to aim for an Otto thermal efficiency in the 45\% ballpark but definitely no more than 48\%. We also are looking for engine power to be around 600 horsepower (HP) which might be quite conservative considering some legal road cars like Lamborghini's are stock with 600+ HP. With the turbocharger at peak performance we would like to be in the 850 - 1000 HP range as per specifications listed in Wikipedia\cite{F1History}. 
+
+\subsection{Thermodynamic Analysis of Mercedes F1 M12 E ICE and Turbocharger}
+The F1 ICE discussed in an Otto engine, which means our cutoff ratio must be equal to 1 since the specific volume $v_4$ equals $v_3$. After some research the compression ratio commonly used in F1 engines is in the 12:1 - 13:1 range and for this analysis we use $V_r = 12$. Our specific heats at constant pressure and constant volume are 0.24 and 0.17 respectively which means our specific heat ratio, k, equals 1.4. The engine sizing, speed and displacement is taken directly from Mercedes\cite{Eperformance}. The fuel heat content of high octane unleaded was assumed to be used. The air-to-fuel ratio used is 14, and given that FIA has restricted the engines to 100kg/hr of fuel, we can solve for the mass air rate. \par
+The first state in the Otto cycle was assumed to be close to atmospheric temperature and atmospheric pressure because it is at the largest specific volume in the cycle and the starting point of the adiabatic compression of the cycle - hence we assume $p_1 = 60$ psia and $T_1 = 1100$ R. Solving for specific volume $v_1$ we get:
+\begin{equation}
+    v_1 = \frac{R_u\times T_1}{p_1\times N\times144\frac{in^3}{ft^3}}
+     = \frac{1545\frac{ftlbf}{lbmolR}\times 1100 R}{60\frac{lbf}{in^3}\times 28.966\frac{g}{mol}\times144\frac{in^3}{ft^3}} = 6.791 \frac{ft^3}{lbm}
+\end{equation}
+\noindent Due to the compression ratio of 12 we can find $v_2$ by the following:
+\begin{equation}
+    v_2 = \frac{v_1}{12} = 0.566 \frac{ft^3}{lbm}
+\end{equation}
+\noindent Now knowing $v_1$, $v_2$ and $p_1$ we can find $p_2$:
+\begin{equation}
+    p_2 = p_1(\frac{v_1}{v_2})^k = 6.791 \frac{ft^3}{lbm}(\frac{6.791}{0.566})^{1.41} = 1,944 \mbox{ psia}
+\end{equation}
+\noindent Temperature $T_2$ is calculated such as:
+\begin{equation}
+    T_2 = \frac{p_2\times v_2\times N\times 144\frac{in^3}{ft^3}}{T_1} = \frac{1,944 \mbox{ psia}\times 6.791\frac{ft^3}{lbm}\times 28.966\frac{g}{mol}\times 144\frac{in^3}{ft^3}}{1,100 R} = 4,279.5\mbox{ R}
+\end{equation}
+\noindent In order to find what $p_3$ equals we need to use our best judgement to judgement and choose a $T_3$ that is appropriate considering that state 3 has already gone through adiabatic expansion and fuel has been injected and combusted. Mercedes has mentioned that the instantaneous gas temperatures at the time of combustion reach 2,600C which is approximately 5,200R\cite{F1engineFacts}. However, it is quite possible that they could get even hotter and for this analysis we will assume the temperature reaches approximately 4,700C. Now we can find $p_3$ by:
+\begin{equation}
+    p_3 = \frac{R_u\times T_3}{v_3\times N\times 144\frac{in^3}{ft^3}} = \frac{1545\frac{ftlbf}{lbmolR}\times 9,000\mbox{ R}}{0.566 \frac{ft^3}{lbm}\times 28.966\frac{g}{mol}\times 144\frac{in^3}{ft^3}} = 5,890.9\mbox{ psia}
+\end{equation}
+\noindent On our excel spreadsheet containing the results we see a fourth state-this state is collapsed into state 3 when choosing a expansion ratio of 1 to convert the model from a dual pressure diesel cycle to an Otto cycle, hence the values remain the same at state 4. The final state which brings us fill circle is state 5, where $v_5$ = $v_1$. $p_5$ is calculated using equation (3) but substituting $v_1$ and $v_2$ for $v_3$ and $v_5$ and $p_1$ for $p_3$-this tells us $p_5$ = 117.2 psia. Finally to complete the process table we find $T_5$ using equation (4) but substituting $p_2$ and $v_2$ for $p_5$ and $v_5$ and $T_1$ for $T_4$. $T_5$ = 3,249 R. Figure xy shows the results for the given assumptions above and the resulting property table, process table, turbocharger calculations, Otto cycle efficiency and engine power.\par
+The calculations for the process table were all the same. Find the internal energy was nothing more than the following equation:
+\begin{equation}
+    u_{i_1i_2} = C_v\times(T_{i_2}-T_{i_1})
+\end{equation}
+\noindent where $i_2$ represents the state proceeding a state $i_1$. Work is only done from states 1-2 and 3-5 because of the adiabatic process which can be represented by:
+\begin{equation}
+    W[BTU] = \frac{((p_2\times v_2) - (p_1\times v_1))\times 144\frac{in^3}{ft^3}}{(1-k)\times 778\frac{ftlb}{BTU}}
+\end{equation}
+\noindent Now heat can be represented as the sum of internal energy and work. With the property and process tables now complete we can calculate the Otto cycle efficiency $\eta_{otto}$ and engine power. The Otto cycle efficiency is expressed by the following equation:
+\begin{equation}
+    \eta_{otto} = 1 - \frac{Q_{in}+Q_{out}}{Q_{in}} = 1 - \frac{Q_{2,3}+Q_{5,1}}{Q_{2,3}}
+\end{equation}
+\noindent The engine power is represented as 
+\begin{equation}
+    W[HP] = \frac{Q_{23}\times D_{engine}\times Vol_{eff}\times 2\times RPM\times 60\times Eff w. Losses}{v_1\times Number_{strokes}\times 2545\times 1728}
+\end{equation}
+\noindent We can represent the Torque T by 
+\begin{equation}
+    T = \frac{W[HP]\times 5252}{RPM}
+\end{equation}
+\noindent Lastly is the turbocharger, which drives the power up and also has its set of assumptions. It will be operating in ambient conditions with 85\% efficiency and 82\% turbo expander efficiency. Knowing the exhaust temperature $T_{exhaust}$ is critical to help us see if our assumptions are good ones in that they are close to what the real world values are. To find $T_{exhaust}$ we need to find the change in enthalpy $\Delta H$ by the following equation:
+\begin{equation}
+    \Delta H = C_p\times T_5\times (1-(\frac{14.7psia}{p_5})^{\frac{k-1}{k}})\times TurboExpanderEff
+\end{equation}
+\noindent Now we can calculate $T_{exhaust}$ by:
+\begin{equation}
+    T_{exhaust} = T_5 - \frac{\Delta H}{C_p}
+\end{equation}
+\noindent The most important parameter we need from the turbocharger are $p_{out}$ and $T_{out}$ which represent the dynamically changine variables that become the new input to $p_1$ and $T_1$ in the property table. To calculate $p_{out}$ and $T_{out}$ we use:
+\begin{equation}
+    p_{out} = 14.7psia\times (1+\frac{(1-TurboBypass)\times \Delta H\times CompressorEff}{C_p\times 540 R})^{\frac{k}{k-1}}
+\end{equation}
+\begin{equation}
+    T_{out} = 540R+\frac{540R\times((\frac{p_{out}}{14.7psia})^{\frac{k-1}{k}}-1)}{CompressorEFf}
+\end{equation}
+
+\section{Discussion of Results}
+\subsection{Assumptions Made}
+Assumptions had to be made in order to model the Mercedes Formula 1 M12 E and some research was done in order to figure out appropriate variables, such as an approximation for T1 and P1, temperature which the ICE reaches at peak performance, compression ratio, exhaust temperature, air-fuel ratio, turbo expander efficiency, turbo bypass percentage and compressor efficiency. \par
+The initial assumption that $p_1$ = 60 psia seems a bit low but it could be possible because at state 1 the piston is at the largest specific volume and has just finished its adiabatic expansion. The temperature $T_1$ seems reasonable for the chosen $p_1$ because it is the coolest temperature in the entire cycle. These two assumptions also make sense because the work done from states 1 to 2 is negative, meaning some energy is required to complete the compression from state 1 to 2, and at the same time there is a significant amount of internal energy created from that adiabatic compression. \par
+The assumption for $T_3$ is perhaps the most worrisome assumption that there is in this whole model because it represents 4,600C. The sun is approximately 5,600C but the only reason why I have stuck to this value for $T_3$ is because it gives us the exact answers to Otto cycle efficiency, engine power and exhaust temperature which we are looking for. And although 4,600C is ridiculously hot, there are many cooling systems onboard the F1 vehicles - from water cooling to massive air flow rates. 4,600C is also not a value which will persistently show up at every combustion in the engine; this is assuming full throttle, 15,000 RPM on a straightaway of a circuit. \par
+The pressure $p_3$ comes out to about 5,900 psia which is very high. However, this can be considered possible because according to Mercedes the turbocharger is designed to induce up to 5$\times$ atmospheric pressure\cite{F1engineFacts}. When we begin with more pressure at the initial state 1 we produce much more pressure and heat in states 2 and 3 and releases less heat as well as shown in the process tables in Figures 5-9 because more energy can combust. If we take a look at the progressive change in the Otto efficiency (cell B11), horsepower (c30), torque (c31) and $T_{exhaust} $ (k36) from Figures 5-9 we notice the efficiency increases from .45 to .47, the horsepower produced increases from 584 to 1,056 hp, torque increases from 204 to 370 ft-lbf and the $T_{exhaust}$ is in the range of 1366-1150 Rankine.
+
+\subsection{Do The Results Make Sense?}
+If we take the Wikipedia site with the most up to date F1 specifications\cite{F1History} set by FIA, we see that power output of the ICE is in the 875-1000 hp range. The set of input used in Figure 5 where we were not using turbocharger input for the property table shows engine power to be 584 hp. This is very likely on the lower end of what the F1 engines are producing naturally because there are 3.8L V6 engines like that of a Nissan GT-R which produce this horsepower out of the dealership. However, once we get as close as we can to steady state with the turbocharger input to the property table (as shown from the three iterations given from Figures 6-9) we see a very large increase in hp and even close to 1,100 hp. This nearly 500 hp addition of horsepower from the turbocharger is quite high. If we brought down the turbocharger efficiency enough to get us in the 200hp range then these numbers would be much more appealing and would put us at nearly 800 hp with the turbocharger active. \par
+If we evaluate the Otto cycle efficiency we see are in the range of 45\%-47\%. This is less than the claimed 50\% thermal efficiency that this entire project is made to prove or disprove. However, the claim of 50\% thermal efficiency also includes the MGU-H and MGU-K which do reintroduce a good portion energy into the system. Wikipedia notably mentions that the maximum retrievable amount of energy from the MGU-K is 120 MW, which if taken into account for in our Otto cycle efficiency equation it is certainly possible for the thermal efficiency to reach 50\%! The torque typically seen from these F1 engines is around the 440-480 ft-lb range, and as seen from Figure 9 we are around that ballpark. In addition, the $T_{exhaust}$ temperatures are in the 1150-1350 Rankine range. Those temperatures correspond to a blue and/or dark blue flame that comes out of the exhaust of the F1 engines and those temperatures are where those flames are seen which is also another indicator that the assumptions and conclusions we have made are in the ballpark of what is really going on internally in these engines. 
+\section{Conclusion}
+In conclusion, Mercedes' claim to to have achieved 50\% thermal efficiency is highly likely. This model is not accurate at all however it has given us one solution which has led us to all the direct specifications that Mercedes and FIA has given the public. The most significant sources of error in this model come from the value of $T_3$ and the efficiencies assumed for the turbocharger. Without the turbocharger and with some more modification to the assumptions made in the property table there should be a fair shot at modeling this engine as close to the real thing as possible. The turbo efficiencies are also not accurate at all as we were not given them. The big picture is spectacular when in retrospect, who would have ever thought 50\% thermal efficiency would be possible? Engine cooling causes a lot of useful energy to be wasted but if there is some kind of absorbent technology that is innovated in the future which could somehow convert that energy into stored energy then breaking the 50\% benchmark would be possible. This is not only useful for the motorsport world, but if these technologies can be made cheap and readily available then perhaps regular everyday driving could be more efficient and keep petroleum vehicles in the market much longer than what is presently thought when considering EVs and climate change.
+\newpage
+\section{Appendix}
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.95\textwidth]{Images/ICEspecs.png}
+\caption{\href{https://www.mercedesamgf1.com/en/car/f1-m12-e-performance/}{Mercedes M12 E ICE Specifications}}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.95\textwidth]{Images/Engine Benchmarks.png}
+\caption{\href{https://en.wikipedia.org/wiki/Formula_One_engines}{General F1 Engine Specifications By FIA}}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.95\textwidth]{Images/Turbo Benchmarks.png}
+\caption{\href{https://en.wikipedia.org/wiki/Formula_One_engines}{General F1 Turbo Specifications By FIA}}
+\end{figure}
+\newpage
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.95\textwidth]{Images/Regular Operation Conditions.png}
+\caption{Regular Engine Operation WITHOUT Turbocharger Activated}
+\end{figure}
+\newpage
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.95\textwidth]{Images/Turbo Iteration 1.png}
+\caption{Regular Engine Operation WITH Turbocharger Activated}
+\end{figure}
+\newpage
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.95\textwidth]{Images/Turbo Iteration 2.png}
+\caption{Regular Engine Operation WITH Turbocharger Activated}
+\end{figure}
+\newpage
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.95\textwidth]{Images/Turbo Iteration 3.png}
+\caption{Regular Engine Operation WITH Turbocharger Activated}
+\end{figure}
+\newpage
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.95\textwidth]{Images/Turbo Iteration 4.png}
+\caption{Regular Engine Operation WITH Turbocharger Activated}
+\end{figure}
+
+\newpage
+\printbibliography[title=References]
+\end{document}
+
